@@ -6,6 +6,10 @@ document.addEventListener('DOMContentLoaded', function () {
     calculatorForm.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form submission
 
+        var totalWeightOfAllPartGroups = 0; // Define totalWeightOfAllPartGroups variable
+        var remainingMaterialWeight = 0; // Define remaining material weight variable
+        var remnantWeightShare = 0;
+
         // Validate inputs
         var thicknessInput = document.getElementById("stock_thickness");
         var thicknessError = document.getElementById("thicknessError");
@@ -53,17 +57,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 totalPartWeight += partWeight;
             });
 
-            
+            // Update totalWeightOfAllPartGroups
+            totalWeightOfAllPartGroups += totalPartWeight;
+        });
+
+        //Get remaining weight of material
+        remainingMaterialWeight = stockWeight - totalWeightOfAllPartGroups;
+
+        // Calculate percentage share of the remnant for each part group
+        partGroups.forEach(function(partGroup) {
+            var partsContainer = partGroup.querySelector(".partsContainer");
+            var partFields = partsContainer.querySelectorAll(".part");
+            var totalPartWeight = 0;
+
+            partFields.forEach(function(partField) {
+                var partSqInches = parseFloat(partField.querySelector("input[name='partSqInches[]']").value);
+                var partQuantity = parseFloat(partField.querySelector("input[name='partQuantity[]']").value);
+                var partWeight = stockThickness * partSqInches * materialDensity * partQuantity;
+                totalPartWeight += partWeight;
+            });
+
+            // Calculate percentage share of the remnant for this part group
+            var partGroupShare = totalPartWeight / totalWeightOfAllPartGroups;
+            remnantWeightShare = partGroupShare * remainingMaterialWeight;
+
             // Get the part group name
             var partGroupName = partGroup.querySelector(".groupNameText").textContent;
 
             // Calculate total weight considering percent markup
             var percentMarkup = parseFloat(partGroup.querySelector("input[name='percentInput[]']").value);
-            var totalWeightWithMarkup = totalPartWeight * (1 + percentMarkup / 100);
+            var totalWeightWithMarkup = (totalPartWeight + remnantWeightShare) * (1 + percentMarkup / 100);
 
             // Display part group total weight
             partGroupsResult += partGroupName + " Total Weight: " + totalWeightWithMarkup.toFixed(2) + " LBS<br>";
-
         });
 
         var partGroupsResultElement = document.getElementById("partGroupResults");
@@ -75,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Update material density input box with the default value for the first material option
     updateMaterialDensity();
 });
+
 
 
 function addPartGroup() {
@@ -155,6 +182,7 @@ function createPartField() {
 
     var partSqInchesInput = document.createElement("input");
     partSqInchesInput.type = "number";
+    partSqInchesInput.step = "any";
     partSqInchesInput.name = "partSqInches[]";
     partSqInchesInput.placeholder = "Square Inches";
 
