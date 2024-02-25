@@ -1,0 +1,27 @@
+/* styles.css */
+
+/* Remove spinners from number input fields */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+body {
+    text-align: center;
+}
+.partGroup {
+    margin-bottom: 20px;
+}
+.part {
+    display: block;
+    margin-bottom: 10px;
+}
+.part label {
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+}
+.error {
+    color: red;
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nested Part Weight Calculator</title>
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <h1>Nested Part Weight Calculator</h1>
+    <p>Please input the following information:</p>
+    <form id="calculatorForm">
+        <!-- Stock Material -->
+        <div class="input-group">
+            <label for="stock_material">Material:</label>
+            <select id="stock_material" name="stock_material" onchange="updateMaterialDensity()">
+                <option value="stainless_steel">Stainless Steel</option>
+                <option value="aluminum">Aluminum</option>
+                <option value="steel">Steel</option>
+                <option value="bronze">Bronze</option>
+                <option value="custom">Custom</option>
+                <!-- Add more options as needed -->
+            </select>
+            <input type="number" step="any" id="material_density" placeholder="Material Density">
+        </div>
+
+        <!-- Stock Thickness -->
+        <div class="input-group">
+            <label for="stock_thickness">Material Thickness:</label>
+            <input type="number" step="any" id="stock_thickness" name="stock_thickness">
+            <span id="thicknessError" class="error" style="display: none;">Please input a material thickness</span>
+        </div>
+        
+        <!-- Stock Square Inches -->
+        <div class="input-group">
+            <label for="stock_sq_inches">Part Square Inches:</label>
+            <input type="number" step="any" id="stock_sq_inches" name="stock_sq_inches">
+            <span id="sqinchesError" class="error" style="display: none;">Please input the material's surface area</span>
+        </div>
+        
+        <br><br>
+        
+        <!-- Input for adding part group name -->
+        <input type="text" id="partGroupName" placeholder="Part Group Name">
+        
+        <!-- Button to add part group -->
+        <button type="button" id="addPartGroupButton">Add Part Group</button>
+        
+        <!-- Container to hold dynamically added part groups -->
+        <div id="partGroups"></div>
+        
+        <br>
+        <input type="submit" value="Calculate">
+    </form>
+
+    <!-- Div for displaying stock weight result -->
+    <div id="stockWeightResult"></div>
+
+    <!-- Div for displaying part group weight results -->
+    <div id="partGroupResults"></div>
+
+    <script src="calculator.js" defer></script>
+</body>
+</html>
