@@ -103,7 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
 function addPartGroup() {
     var container = document.getElementById("partGroups");
     var partGroup = document.createElement("div");
@@ -186,9 +185,16 @@ function createPartField() {
     partSqInchesInput.name = "partSqInches[]";
     partSqInchesInput.placeholder = "Square Inches";
 
+    var deletePartButton = document.createElement("button");
+    deletePartButton.textContent = "Delete Part";
+    deletePartButton.addEventListener("click", function() {
+        partField.parentElement.removeChild(partField); // Remove the part field
+    });
+
     partField.appendChild(partNameInput);
     partField.appendChild(partQuantityInput);
     partField.appendChild(partSqInchesInput);
+    partField.appendChild(deletePartButton);
 
     return partField;
 }
