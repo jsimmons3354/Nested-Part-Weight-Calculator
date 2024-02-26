@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Remove spinners from number input fields */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -10,18 +8,32 @@ input[type="number"]::-webkit-inner-spin-button {
 body {
     text-align: center;
 }
+
+/* Adjust text box sizes */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100px; /* Adjust the width as needed */
+    padding: 1px; /* Add padding to the text boxes */
+    margin-right: 20px; /* Add spacing between elements on the same line */
+    margin-bottom: 5px; /* Add margin between text boxes */
+}
+
 .partGroup {
     margin-bottom: 20px;
 }
+
 .part {
-    display: block;
-    margin-bottom: 10px;
+    display: inline-block; /* Display parts horizontally */
+    margin-bottom: 20px; /* Increase margin between part groups */
 }
+
 .part label {
     display: inline-block;
     width: 100px;
     margin-right: 10px;
 }
+
 .error {
     color: red;
 }
