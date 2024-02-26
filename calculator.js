@@ -113,7 +113,8 @@ function addPartGroup() {
     var br2 = document.createElement("br");
 
     // Get part group name
-    var partGroupName = document.getElementById("partGroupName").value;
+    var partGroupNameInput = document.getElementById("partGroupName");
+    var partGroupName = partGroupNameInput.value;
 
     // Create text node for part group name
     var groupNameText = document.createElement("span");
@@ -163,6 +164,9 @@ function addPartGroup() {
     
     // Append part group to container
     container.appendChild(partGroup);
+
+    partGroupNameInput.value = "";
+
 }
 
 function createPartField() {
